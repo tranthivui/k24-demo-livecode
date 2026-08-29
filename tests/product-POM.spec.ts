@@ -55,9 +55,9 @@ test.describe("Verify detail product page", async () => {
     //Verify tính năng product review hoạt động đúng: khi submit, review sẽ hiển thị ở trình duyệt người dùng
     test("Verify tính năng product review hoạt động đúng: khi submit, review sẽ hiển thị ở trình duyệt người dùng", async ({ page, browser }) => {
         const testData = {
-            yourReview: "Review 29085",
-            yourEmail: "vuitest29085@gmail.com",
-            yourName: "VuiTran29085",
+            yourReview: "Review 290812",
+            yourEmail: "vuitest290812@gmail.com",
+            yourName: "VuiTran290812",
             yourRating: 'star-5',
             yourReviewStatus: "Your review is awaiting approval"
         }
@@ -85,6 +85,7 @@ test.describe("Verify detail product page", async () => {
         await page.reload();
         await expect(reviewStatusText).toBe(`${testData.yourReviewStatus}`);
 
+        
         //Open new browser and not show review
         const context=await browser.newContext();
         const page2=await context.newPage();
@@ -92,5 +93,6 @@ test.describe("Verify detail product page", async () => {
         const newProductDetailPage=new ProductDatailPage(page2);
         await newProductDetailPage.clickTabReview();
         await expect(newProductDetailPage.textNotHaveReview).toBeVisible();
+        await page2.waitForTimeout(10_000);
     })
 })

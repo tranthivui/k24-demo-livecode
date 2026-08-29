@@ -18,7 +18,7 @@ export class ProductDatailPage {
     yourRatingtext: Locator;
     saveNameCkb: Locator;
     reviewstatus: Locator;
-    yourRating: Locator;
+  //  yourRating: Locator;
 
 
     constructor(page: Page) {
@@ -39,7 +39,7 @@ export class ProductDatailPage {
         this.yourRatingtext = this.page.locator("//label[@id='comment-form-rating-label']");
         this.saveNameCkb = this.page.locator("//input[@id='wp-comment-cookies-consent']");
         this.reviewstatus = this.page.locator("//em[@class='woocommerce-review__awaiting-approval']");
-        this.yourRating = this.page.locator("//a[@class='star-5']")
+     //   this.yourRating = this.page.locator("//a[@class='star-5']")
     }
 
     async clickTabReview() {
@@ -60,7 +60,7 @@ export class ProductDatailPage {
     }
 
     async getReviewStatus(youReview: string){
-        this.reviewstatus=this.page.locator(`//p[text()='${youReview}']/preceding::em[1]`);
+        this.reviewstatus=this.page.locator(`//p[text()='${youReview}']/preceding::em`);
     }
 
     async setRating(yourRating: string){
