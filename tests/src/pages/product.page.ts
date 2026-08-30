@@ -18,7 +18,7 @@ export class ProductDatailPage {
     yourRatingtext: Locator;
     saveNameCkb: Locator;
     reviewstatus: Locator;
-  //  yourRating: Locator;
+    //  yourRating: Locator;
 
 
     constructor(page: Page) {
@@ -39,7 +39,7 @@ export class ProductDatailPage {
         this.yourRatingtext = this.page.locator("//label[@id='comment-form-rating-label']");
         this.saveNameCkb = this.page.locator("//input[@id='wp-comment-cookies-consent']");
         this.reviewstatus = this.page.locator("//em[@class='woocommerce-review__awaiting-approval']");
-     //   this.yourRating = this.page.locator("//a[@class='star-5']")
+        //   this.yourRating = this.page.locator("//a[@class='star-5']")
     }
 
     async clickTabReview() {
@@ -50,20 +50,41 @@ export class ProductDatailPage {
         await this.addProductBtn.click();
     }
 
-    async writeReview(youReview: string, name: string, email: string, yourRating: string) {
-        await this.yourComment.fill(youReview);
-        await this.name.fill(name);
-        await this.email.fill(email);
-        await this.saveNameCkb.check();
+    async writeReview(yourReview: string, name: string, email: string, yourRating: string) {
+        await this.setYourReview(yourReview);
+        await this.setYourName(name);
+        await this.setYourEmail(email);
+        await this.checkSaveName();
         await this.setRating(yourRating);
+        await this.clickSubmitYourReview();
+    }
+
+    async setYourReview(yourReview: string) {
+        await this.yourComment.fill(yourReview);
+    }
+
+    async setYourEmail(email: string) {
+        this.email.fill(email);
+    }
+
+
+    async setYourName(name: string) {
+        await this.name.fill(name);
+    }
+
+    async setRating(yourRating: string) {
+        await this.page.locator(`//a[@class='${yourRating}']`).click();
+    }
+
+    async checkSaveName() {
+        await this.saveNameCkb.check();
+    }
+
+    async clickSubmitYourReview() {
         await this.submitReviewBtn.click();
     }
 
-    async getReviewStatus(youReview: string){
-        this.reviewstatus=this.page.locator(`//p[text()='${youReview}']/preceding::em`);
-    }
-
-    async setRating(yourRating: string){
-                await this.page.locator(`//a[@class='${yourRating}']`).click();
+    async getReviewStatus(youReview: string) {
+        this.reviewstatus = this.page.locator(`//p[text()='${youReview}']/preceding::em`);
     }
 }

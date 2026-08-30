@@ -55,14 +55,14 @@ test.describe("Verify detail product page", async () => {
     //Verify tính năng product review hoạt động đúng: khi submit, review sẽ hiển thị ở trình duyệt người dùng
     test("Verify tính năng product review hoạt động đúng: khi submit, review sẽ hiển thị ở trình duyệt người dùng", async ({ page, browser }) => {
         const testData = {
-            yourReview: "Review 290812",
-            yourEmail: "vuitest290812@gmail.com",
-            yourName: "VuiTran290812",
+            yourReview: "Review 30081",
+            yourEmail: "vuitest30081@gmail.com",
+            yourName: "VuiTran30081",
             yourRating: 'star-5',
             yourReviewStatus: "Your review is awaiting approval"
         }
         const productDetail = new ProductDatailPage(page);
-        //Verify tab review: Not have review, show your rating-your ewview-name-email-checkbox
+        //Verify tab review: Not have review, show your rating-your review-name-email-checkbox
         await productDetail.clickTabReview();
         await expect(productDetail.textNotHaveReview).toBeVisible();
         await expect(productDetail.yourRatingtext).toBeVisible();
@@ -73,8 +73,8 @@ test.describe("Verify detail product page", async () => {
 
         //Write review
         await productDetail.writeReview(testData.yourReview, testData.yourName, testData.yourEmail, testData.yourRating);
+        
         //Verify review status=Waiting approve
-
         await productDetail.getReviewStatus(testData.yourReview);
         const reviewStatusText = await productDetail.reviewstatus.innerText();
         //  console.log(reviewStatusText);
