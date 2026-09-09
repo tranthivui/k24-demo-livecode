@@ -13,9 +13,9 @@ test.describe("Verify detail product page", async () => {
             stockStatus: true
         },
         review:{
-reviewText: "Review 09082",
-            email: "vuitest09082@gmail.com",
-            name: "VuiTran09082",
+reviewText: "Review 09083",
+            email: "vuitest09083@gmail.com",
+            name: "VuiTran09083",
             rating: 'star-5',
             status: "Your review is awaiting approval"
         }

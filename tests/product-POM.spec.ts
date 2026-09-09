@@ -75,15 +75,15 @@ test.describe("Verify detail product page", async () => {
         await productDetail.writeReview(testData.yourReview, testData.yourName, testData.yourEmail, testData.yourRating);
         
         //Verify review status=Waiting approve
-        await productDetail.getReviewStatus(testData.yourReview);
+        productDetail.getReviewStatus(testData.yourReview);
         const reviewStatusText = await productDetail.reviewstatus.innerText();
         //  console.log(reviewStatusText);
-        await expect(reviewStatusText).toBe(`${testData.yourReviewStatus}`);
+        expect(reviewStatusText).toBe(`${testData.yourReviewStatus}`);
 
         //Refresh browser
         await page.waitForTimeout(2_000);
         await page.reload();
-        await expect(reviewStatusText).toBe(`${testData.yourReviewStatus}`);
+        expect(reviewStatusText).toBe(`${testData.yourReviewStatus}`);
 
         
         //Open new browser and not show review
