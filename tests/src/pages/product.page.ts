@@ -84,7 +84,9 @@ export class ProductDatailPage {
         await this.submitReviewBtn.click();
     }
 
-    async getReviewStatus(youReview: string) {
-        this.reviewstatus = this.page.locator(`//p[text()='${youReview}']/preceding::em`);
+    getReviewStatus(reviewText: string):Locator {
+        this.reviewstatus = this.page.locator(`//p[text()='${reviewText}']/preceding::em`);
+        return this.reviewstatus;
     }
+
 }
