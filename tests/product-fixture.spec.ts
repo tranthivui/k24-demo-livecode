@@ -5,21 +5,21 @@ import { ProductDatailPage } from "./src/pages/product.page.ts";
 test.describe("Verify detail product page", async () => {
     //Arrange
     const testData = {
-        product:{
+        product: {
             productName: "FullStack Automation QA với Playwright Typescript",
             originPrice: "Original price was: 2.499.000 $.",
             currentPrice: "Current price is: 1.749.000 $.",
             desc: "Khoá học automation test từ chưa biết gì, với Playwright TypeScript",
             stockStatus: true
         },
-        review:{
-reviewText: "Review 09083",
+        review: {
+            reviewText: "Review 09083",
             email: "vuitest09083@gmail.com",
             name: "VuiTran09083",
             rating: 'star-5',
             status: "Your review is awaiting approval"
         }
-        };
+    };
     //Pre-condition
     test.beforeEach("Go to product detail page", async ({ page }) => {
         await test.step("Go to product detail page", async () => {
@@ -54,7 +54,7 @@ reviewText: "Review 09083",
 
     //Verify tính năng product review hoạt động đúng: khi submit, review sẽ hiển thị ở trình duyệt người dùng
     test("Verify tính năng product review hoạt động đúng: khi submit, review sẽ hiển thị ở trình duyệt người dùng", async ({ productDetail, browser }) => {
-     
+
         //Verify tab review: Not have review, show your rating-your review-name-email-checkbox
         await productDetail.clickTabReview();
         await expect(productDetail.textNotHaveReview).toBeVisible();
@@ -66,21 +66,21 @@ reviewText: "Review 09083",
 
         //Write review
         await productDetail.writeReview(testData.review.reviewText, testData.review.name, testData.review.email, testData.review.rating);
-        
+
         //Verify review status=Waiting approve
-        expect (productDetail.getReviewStatus(testData.review.reviewText)).toHaveText(testData.review.status);
+        expect(productDetail.getReviewStatus(testData.review.reviewText)).toHaveText(testData.review.status);
 
         //Refresh browser
         await productDetail.page.waitForTimeout(2_000);
-       await productDetail.page.reload();
-       await expect (productDetail.getReviewStatus(testData.review.reviewText)).toHaveText(testData.review.status);
+        await productDetail.page.reload();
+        await expect(productDetail.getReviewStatus(testData.review.reviewText)).toHaveText(testData.review.status);
 
-        
+
         //Open new browser and not show review
-        const context=await browser.newContext();
-        const page2=await context.newPage();
+        const context = await browser.newContext();
+        const page2 = await context.newPage();
         await page2.goto("https://e-commerce-dev.betterbytesvn.com/product/fullstack-automation-qa-voi-playwright-typescript/");
-        const newProductDetailPage=new ProductDatailPage(page2);
+        const newProductDetailPage = new ProductDatailPage(page2);
         await newProductDetailPage.clickTabReview();
         await expect(newProductDetailPage.textNotHaveReview).toBeVisible();
         await page2.waitForTimeout(10_000);
